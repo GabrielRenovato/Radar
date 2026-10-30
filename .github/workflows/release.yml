@@ -1,0 +1,26 @@
+name: Release
+
+# Ao criar uma tag vX.Y.Z (igual ao version do package.json), gera o instalador e publica na release deste repositório.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npx vite build
+      # Publica no repositório que roda o workflow, sobrescrevendo o destino do package.json.
+      - run: npx electron-builder --win --publish always -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=${{ github.event.repository.name }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

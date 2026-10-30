@@ -1,0 +1,58 @@
+@import './radar-tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 300 500;
+  src: url('/fonts/material-symbols.woff2') format('woff2');
+}
+
+.msr {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+html, body, #root { margin: 0; height: 100%; }
+body { background: transparent; color: var(--rd-fg); }
+body.native, body.toast { padding: 16px; box-sizing: border-box; overflow: hidden; }
+body.demo { background: var(--rd-desk); display: grid; place-items: center; min-height: 100vh; }
+
+.rd-scroll { scrollbar-width: thin; scrollbar-color: var(--rd-stroke2) transparent; }
+
+.acrylic {
+  background: var(--rd-layer);
+  backdrop-filter: blur(30px) saturate(140%);
+  -webkit-backdrop-filter: blur(30px) saturate(140%);
+}
+
+@keyframes skel { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.9; } }
+.skel { animation: skel 1.2s ease-in-out infinite; background: var(--rd-stroke2); border-radius: 4px; }
+
+@keyframes radinho-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes radinho-blink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+@keyframes radinho-sweep { to { transform: rotate(360deg); } }
+@keyframes radinho-spark { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+@keyframes radinho-in { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes radinho-shadow { 0%, 100% { transform: scaleX(1); opacity: .35; } 50% { transform: scaleX(.8); opacity: .2; } }
+.radinho-float { animation: radinho-float 2.6s ease-in-out infinite; }
+.radinho-blink { animation: radinho-blink 4.5s infinite; }
+.radinho-sweep { animation: radinho-sweep 3.2s linear infinite; }
+.radinho-spark { animation: radinho-spark 2s ease-in-out infinite; }
+.radinho-in { animation: radinho-in .35s ease-out both; }
+.radinho-shadow { animation: radinho-shadow 2.6s ease-in-out infinite; transform-origin: 60px 112px; }
+
+:focus-visible { outline: 2px solid var(--rd-accent); outline-offset: 1px; }

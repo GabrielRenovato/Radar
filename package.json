@@ -1,0 +1,70 @@
+{
+  "name": "radar",
+  "private": true,
+  "version": "0.3.0",
+  "description": "Utilit\u00e1rio de bandeja do Windows para acompanhar issues, MRs e pipelines do GitLab ou Azure DevOps",
+  "author": "Gabriel Renovato",
+  "license": "MIT",
+  "homepage": "https://github.com/GabrielRenovato/Radar",
+  "repository": { "type": "git", "url": "https://github.com/GabrielRenovato/Radar.git" },
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "start": "vite build && vite preview --port 4173",
+    "test": "vitest run",
+    "electron:dev": "node scripts/dev.mjs",
+    "electron:start": "vite build && electron .",
+    "dist": "vite build && electron-builder --win --publish never",
+    "release": "powershell -ExecutionPolicy Bypass -File scripts/release.ps1"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  },
+  "build": {
+    "appId": "io.github.gabrielrenovato.radar",
+    "productName": "Radar",
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "GabrielRenovato",
+      "repo": "Radar-releases",
+      "releaseType": "release"
+    }
+  }
+}
